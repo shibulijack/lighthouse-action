@@ -52,15 +52,16 @@ printf "    %s\n" "$OUTPUT_PATH.report.json"
 printf "\n\nPERFORMANCE CRITERIA: $(echo "$INPUT_PERF")"
 printf "\nSEO CRITERIA: $(echo "$INPUT_SEO")\n\n"
 
-score_perf_float="$(echo "$SCORE_PERFORMANCE*100"
+score_perf_float="$(echo "$SCORE_PERFORMANCE*100" | bc -l)"
 score_perf_int=${score_perf_float%.*}
 
-score_seo_float="$(echo "$SCORE_SEO*100"
+score_seo_float="$(echo "$SCORE_SEO*100" | bc -l)"
 score_seo_int=${score_seo_float%.*}
 
 if [ $score_perf_int -ge $INPUT_PERF -a $score_seo_int -ge $INPUT_SEO ]; then
+        printf "LIGHTHOUSE SCORES PASSED."
         exit 0
 else
-        printf "LIGHTHOUSE SCORES NOT MET."
+        printf "LIGHTHOUSE SCORES FAILED."
         exit 1
 fi
