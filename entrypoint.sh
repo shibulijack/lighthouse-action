@@ -48,4 +48,9 @@ printf "* Detailed results are saved here, use https://github.com/actions/upload
 printf "    %s\n" "$OUTPUT_PATH.report.html"
 printf "    %s\n" "$OUTPUT_PATH.report.json"
 
-exit 0
+if [ $INPUT_PERF -ge 90 -a $INPUT_SEO -ge 80 ]; then
+        exit 0
+else
+        printf "LIGHTHOUSE SCORES NOT MET."
+        exit 1
+fi
