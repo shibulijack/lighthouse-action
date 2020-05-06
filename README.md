@@ -2,6 +2,12 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/jakejarvis/lighthouse-action/master/screenshots/logo.png" alt="Lighthouse Logo" width="300"></p>
 
+## IMPORTANT
+
+THIS FORK OF https://github.com/jakejarvis/lighthouse-action HAS THE FOLLOWING ENHANCEMENTS:
+- **Make CI fail if scores do not meet specified thresholds.**
+- Lighthouse runs in `desktop` form factor.
+
 This action integrates Google's helpful [Lighthouse audits](https://developers.google.com/web/tools/lighthouse/) for webpages — specifically testing for Performance, Accessibility, Best Practices, SEO, and Progressive Web Apps. Right now, the action will print the five scores (out of 100) to the output and upload HTML and JSON versions of the report as artifacts. In the next release, the action will let you specify thresholds for each test and optionally fail this step if they are not met.
 
 <p align="center"><img src="https://raw.githubusercontent.com/jakejarvis/lighthouse-action/master/screenshots/screenshot-report.png" alt="Example HTML report"></p>
@@ -15,7 +21,7 @@ Inspired by [GoogleChromeLabs/lighthousebot](https://github.com/GoogleChromeLabs
 
 ### `workflow.yml` Example
 
-The following workflow runs a Lighthouse audit on [https://jarv.is/](https://jarv.is/), shows the five scores in the output of the step, and uploads the `.html` and `.json` results as artifacts to download (as shown above).
+The following workflow runs a Lighthouse audit on [https://shibulijack.in/](https://shibulijack.in/), shows the five scores in the output of the step, and uploads the `.html` and `.json` results as artifacts to download (as shown above).
 
 ```yaml
 name: Audit live site
@@ -26,9 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Audit live URL
-      uses: jakejarvis/lighthouse-action@master
+      uses: shibulijack/lighthouse-action@master
       with:
-        url: 'https://jarv.is/'
+        url: 'https://shibulijack.in/'
     - name: Upload results as an artifact
       uses: actions/upload-artifact@master
       with:
@@ -52,9 +58,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Audit Netlify deploy preview
-      uses: jakejarvis/lighthouse-action@master
+      uses: shibulijack/lighthouse-action@master
       with:
         netlify_site: 'blissful-heisenberg-16c40f.netlify.com'
+        perf: 90
+        seo: 90
     - uses: actions/upload-artifact@master
       with:
         name: report
@@ -68,8 +76,6 @@ On pull requests, the PR number will be extracted from the GitHub event data and
 
 ## To-Do
 
-- **Make CI fail if scores do not meet specified thresholds.**
-- Ability to customize flags passed to both Chrome and Lighthouse
 - Batch URL testing
 
 
